@@ -1,6 +1,7 @@
 {
     "env": {
-        "MONGO_ATLAS_PW": "admin",
-        "JWT_KEY": "mandimawarmerahmalamminggu"
+        "MONGO_ATLAS_PW": "test",
+        "MONGO_ATLAS_SERVER": "test",
+        "JWT_KEY": "test"
     }
 }

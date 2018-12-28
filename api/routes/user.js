@@ -9,6 +9,32 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 
+// get all user info
+router.get('', (req, res, next) => {
+    // find all using find()
+    User.find()
+    .select("-__v") //select other column beside __v
+    .exec() //execute the query
+    .then(docs => {
+        // send formatted response
+        const response = {
+            users: docs.map(doc => { //map through all data
+                return {
+                    _id: doc._id,
+                    email: doc.email,
+                    password: doc.password
+                }
+            })
+        }
+        // console.log(docs);
+        res.status(200).json(response); // send formatted response
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+    });
+});
+
 // create new user
 router.post('/signup', (req, res, next) => {
     User.find({ email: req.body.email })
@@ -76,14 +102,18 @@ router.post('/login', (req, res, next) => {
                         },
                         //second is secret key
                             process.env.JWT_KEY,
-                        {
-                            expiresIn: '1h'
-                        }
+                        // {
+                        //     expiresIn: '1h'
+                        // }
                     );
 
                     return res.status(200).json({ 
                         message: 'Success login!',
-                        token: token
+                        token: token,
+                        user: {
+                            email: user[0].email,
+                            userId: user[0]._id
+                        }
                     });
                 }
 

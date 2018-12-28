@@ -12,7 +12,7 @@ const userRoutes = require('./api/routes/user')
 
 
 // connect to mongoDB Database
-mongoose.connect('mongodb+srv://admin:'+ process.env.MONGO_ATLAS_PW + '@node-rest-shop-jb9op.mongodb.net/test?retryWrites=true', { useNewUrlParser: true })
+mongoose.connect('mongodb+srv://admin:'+ process.env.MONGO_ATLAS_PW + process.env.MONGO_ATLAS_SERVER, { useNewUrlParser: true })
 mongoose.Promise = global.Promise;
 
 
